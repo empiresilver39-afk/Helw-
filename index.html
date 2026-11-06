@@ -1,0 +1,615 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100914">
+<title>Helw ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--bg:#100914;
+--pink:#e9a5c5;
+--gold:#d8b78d;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+background:var(--bg);
+color:white;
+font-family:'Cairo',sans-serif;
+overflow-x:hidden;
+}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:0;
+background:
+radial-gradient(ellipse at 20% 20%,#5c214333,transparent 50%),
+radial-gradient(ellipse at 80% 80%,#9b477522,transparent 50%);
+}
+
+#lock{
+position:fixed;
+inset:0;
+z-index:100;
+background:radial-gradient(circle at center,#482039,#100914 70%);
+display:flex;
+align-items:center;
+justify-content:center;
+padding:25px;
+transition:1s;
+}
+
+.lock-card{
+text-align:center;
+width:100%;
+max-width:370px;
+padding:40px 25px;
+border:1px solid #e9a5c544;
+border-radius:25px;
+background:#ffffff08;
+backdrop-filter:blur(15px);
+box-shadow:0 0 70px #e9a5c522;
+animation:float 4s ease-in-out infinite;
+}
+
+.lock-heart{
+font-size:48px;
+margin-bottom:15px;
+animation:beat 1.8s infinite;
+}
+
+.lock-card h1{
+font-family:'Amiri',serif;
+color:var(--pink);
+font-size:36px;
+font-weight:400;
+}
+
+.lock-card p{
+color:#d9b9ca;
+margin:12px 0 25px;
+font-size:14px;
+}
+
+#password{
+width:100%;
+padding:15px;
+text-align:center;
+border:1px solid #e9a5c566;
+border-radius:14px;
+background:#ffffff0c;
+color:white;
+font-size:22px;
+letter-spacing:5px;
+outline:none;
+}
+
+#enter{
+width:100%;
+margin-top:15px;
+padding:14px;
+border:0;
+border-radius:14px;
+color:#351323;
+font-weight:800;
+font-size:16px;
+background:linear-gradient(120deg,#f2bfd8,#d99ab9);
+}
+
+#error{
+color:#ff9da9;
+margin-top:12px;
+font-size:13px;
+min-height:20px;
+}
+
+#site{
+display:none;
+position:relative;
+z-index:1;
+padding-bottom:60px;
+}
+
+.hero{
+min-height:95vh;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+text-align:center;
+padding:40px 20px;
+position:relative;
+overflow:hidden;
+}
+
+.hero:before{
+content:"";
+position:absolute;
+width:300px;
+height:300px;
+border-radius:50%;
+background:#e88bb522;
+filter:blur(80px);
+animation:glow 5s infinite alternate;
+}
+
+.hero-content{
+position:relative;
+animation:heroIn 2s ease both;
+}
+
+.hero small{
+color:var(--gold);
+letter-spacing:5px;
+font-size:11px;
+}
+
+.hero h1{
+font-family:'Amiri',serif;
+font-size:clamp(48px,12vw,85px);
+font-weight:400;
+color:var(--pink);
+margin:20px 0;
+text-shadow:0 0 35px #e9a5c555;
+}
+
+.hero p{
+color:#e4cbd8;
+font-size:15px;
+line-height:2.2;
+}
+
+.scroll{
+position:absolute;
+bottom:35px;
+color:#d6a9c1;
+font-size:12px;
+animation:updown 2s infinite;
+}
+
+.gallery{
+max-width:850px;
+margin:auto;
+padding:20px 18px;
+}
+
+.section-title{
+text-align:center;
+margin:40px 0 55px;
+}
+
+.section-title h2{
+font-family:'Amiri',serif;
+color:var(--pink);
+font-size:36px;
+font-weight:400;
+}
+
+.section-title p{
+color:#b99aab;
+font-size:12px;
+margin-top:8px;
+}
+
+.photo-card{
+position:relative;
+width:min(100%,570px);
+margin:0 auto 85px;
+padding:11px;
+border:1px solid #e9a5c533;
+border-radius:20px;
+background:linear-gradient(145deg,#ffffff12,#ffffff03);
+box-shadow:0 20px 65px #0008;
+opacity:0;
+transform:translateY(80px) scale(.90);
+transition:opacity 1s ease,transform 1.2s cubic-bezier(.2,.8,.2,1);
+perspective:1000px;
+}
+
+.photo-card.show{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+.photo-card:nth-child(even).show{
+transform:translateY(0) rotate(-1deg) scale(1);
+}
+
+.photo-card img{
+width:100%;
+display:block;
+border-radius:13px;
+object-fit:cover;
+max-height:650px;
+cursor:zoom-in;
+transition:transform 1.3s ease,filter 1s ease;
+}
+
+.photo-card:hover img{
+transform:scale(1.035);
+filter:brightness(1.08);
+}
+
+.photo-card:after{
+content:"";
+position:absolute;
+inset:10px;
+border-radius:13px;
+pointer-events:none;
+background:linear-gradient(130deg,transparent 30%,#fff3 48%,transparent 60%);
+background-size:250% 100%;
+background-position:150% 0;
+transition:background-position 1.3s;
+}
+
+.photo-card:hover:after{
+background-position:-100% 0;
+}
+
+.number{
+position:absolute;
+top:-18px;
+right:20px;
+width:38px;
+height:38px;
+border-radius:50%;
+display:grid;
+place-items:center;
+background:#e9a5c5;
+color:#321323;
+font-size:13px;
+font-weight:800;
+z-index:2;
+box-shadow:0 0 25px #e9a5c566;
+}
+
+.message{
+text-align:center;
+margin:30px 20px 60px;
+padding:50px 20px;
+border-top:1px solid #e9a5c533;
+border-bottom:1px solid #e9a5c533;
+}
+
+.message h2{
+color:var(--pink);
+font-family:'Amiri',serif;
+font-size:35px;
+font-weight:400;
+margin-bottom:20px;
+}
+
+.message p{
+color:#e4cbd8;
+line-height:2.5;
+font-size:15px;
+max-width:500px;
+margin:auto;
+}
+
+.music{
+position:fixed;
+bottom:20px;
+left:20px;
+z-index:50;
+display:flex;
+align-items:center;
+gap:10px;
+background:#301c2aee;
+border:1px solid #e9a5c566;
+padding:10px 16px;
+border-radius:40px;
+box-shadow:0 5px 30px #0008;
+backdrop-filter:blur(12px);
+}
+
+.music button{
+background:none;
+border:0;
+color:white;
+font-size:23px;
+}
+
+.music span{
+font-size:11px;
+color:#f2c9dc;
+}
+
+.heart{
+position:fixed;
+bottom:-30px;
+color:#e9a5c5;
+pointer-events:none;
+z-index:5;
+animation:rise linear forwards;
+}
+
+#lightbox{
+position:fixed;
+inset:0;
+background:#08050bee;
+z-index:200;
+display:none;
+align-items:center;
+justify-content:center;
+padding:15px;
+backdrop-filter:blur(12px);
+}
+
+#lightbox img{
+max-width:100%;
+max-height:85vh;
+border-radius:15px;
+box-shadow:0 0 50px #e9a5c544;
+animation:zoomIn .5s ease;
+}
+
+#close{
+position:absolute;
+top:25px;
+left:25px;
+font-size:35px;
+color:white;
+background:none;
+border:0;
+}
+
+footer{
+text-align:center;
+color:#b99aab;
+font-family:'Amiri',serif;
+font-size:20px;
+padding:30px;
+}
+
+@keyframes float{
+50%{transform:translateY(-10px)}
+}
+@keyframes beat{
+50%{transform:scale(1.2)}
+}
+@keyframes glow{
+to{transform:scale(1.5);opacity:.5}
+}
+@keyframes heroIn{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:translateY(0)}
+}
+@keyframes updown{
+50%{transform:translateY(10px)}
+}
+@keyframes rise{
+to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+@keyframes zoomIn{
+from{transform:scale(.8);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+@media(max-width:600px){
+.hero{min-height:85vh}
+.photo-card{margin-bottom:65px}
+.message{padding:40px 12px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="lock">
+<div class="lock-card">
+<div class="lock-heart">❤️</div>
+<h1>مكانك هنا</h1>
+<p>فيه حكاية جميلة مستنياكي...</p>
+<input id="password" type="password" placeholder="•••••" inputmode="numeric">
+<button id="enter">افتحي الحكاية ❤️</button>
+<div id="error"></div>
+</div>
+</div>
+
+<div id="site">
+
+<section class="hero">
+<div class="hero-content">
+<small>JUST FOR YOU ❤️</small>
+<h1>حكايتنا الحلوة</h1>
+<p>في حاجات حلوة في الدنيا<br>بتفضل محفورة جوانا مهما الوقت عدى ❤️</p>
+</div>
+<div class="scroll">انزلي واكتشفي حكايتنا ↓</div>
+</section>
+
+<section class="gallery">
+
+<div class="section-title">
+<h2>تفاصيل مش بتتنسي</h2>
+<p>كل صورة وراها حكاية ❤️</p>
+</div>
+
+<div id="photos"></div>
+
+</section>
+
+<section class="message">
+<h2>إلى أجمل حكاية ❤️</h2>
+<p>
+في صور كتير ممكن تعدي علينا وننساها،
+لكن فيه لحظات بتفضل عايشة جوانا.
+<br>
+يمكن الصور دي مجرد ذكريات،
+لكن كل ذكرى فيها ليها مكان مختلف في القلب.
+<br>
+وهتفضلي دايماً حكاية حلوة ❤️
+</p>
+</section>
+
+<footer>
+Made with Love ❤️
+</footer>
+
+</div>
+
+<div class="music" id="music" style="display:none">
+<button id="musicBtn">▶</button>
+<span>كلمة - رامي صبري</span>
+</div>
+
+<audio id="song" loop preload="auto">
+<source src="https://raw.githubusercontent.com/empiresilver39-afk/Moktam/main/04.Kelma.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lightbox">
+<button id="close">×</button>
+<img id="largeImage" src="" alt="صورة مكبرة">
+</div>
+
+<script>
+const imageFiles = [
+"0cf38eae-00b8-4926-b3e8-d79849429cf4.jpeg",
+"228bfe29-d3f4-470b-84f0-5484468f069b.jpeg",
+"22a33bb8-d972-48d1-9ae0-97caca9f6bb9.jpeg",
+"80877e34-bfaf-4905-9cbe-535343d3ac0d.jpeg",
+"90bbd439-5f2e-46bc-9b3f-4d5616940190.jpeg",
+"a9707b98-25f0-47d9-b220-3b6a2c054bb8.jpeg",
+"e98b4bdb-74f6-4798-8a2a-54f1019c69a5.jpeg",
+"ebe6cf5d-eef8-4f6a-a18b-9553b93ac358.jpeg"
+];
+
+const base =
+"https://raw.githubusercontent.com/empiresilver39-afk/Helw-/main/";
+
+const photos = document.getElementById("photos");
+
+imageFiles.forEach((file,index)=>{
+const card=document.createElement("div");
+card.className="photo-card";
+
+const img=document.createElement("img");
+img.src=base+file;
+img.alt="ذكرى رقم "+(index+1);
+img.loading="lazy";
+img.onerror=()=>{img.alt="تعذر تحميل الصورة";};
+
+const number=document.createElement("div");
+number.className="number";
+number.textContent=String(index+1).padStart(2,"0");
+
+card.appendChild(img);
+card.appendChild(number);
+photos.appendChild(card);
+
+img.addEventListener("click",()=>{
+document.getElementById("largeImage").src=img.src;
+document.getElementById("lightbox").style.display="flex";
+});
+});
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+observer.unobserve(entry.target);
+}
+});
+},{threshold:.12});
+
+document.querySelectorAll(".photo-card").forEach(card=>{
+observer.observe(card);
+});
+
+const lock=document.getElementById("lock");
+const password=document.getElementById("password");
+const enter=document.getElementById("enter");
+const error=document.getElementById("error");
+const site=document.getElementById("site");
+const song=document.getElementById("song");
+const music=document.getElementById("music");
+const musicBtn=document.getElementById("musicBtn");
+
+function unlock(){
+if(password.value==="20/12"){
+lock.style.opacity="0";
+setTimeout(()=>{
+lock.style.display="none";
+site.style.display="block";
+music.style.display="flex";
+window.scrollTo(0,0);
+},900);
+
+song.play().then(()=>{
+musicBtn.textContent="Ⅱ";
+}).catch(()=>{
+musicBtn.textContent="▶";
+});
+}else{
+error.textContent="الباسورد مش صحيح.. جربي تاني ❤️";
+password.value="";
+}
+}
+
+enter.addEventListener("click",unlock);
+password.addEventListener("keydown",e=>{
+if(e.key==="Enter")unlock();
+});
+
+musicBtn.addEventListener("click",()=>{
+if(song.paused){
+song.play();
+musicBtn.textContent="Ⅱ";
+}else{
+song.pause();
+musicBtn.textContent="▶";
+}
+});
+
+document.getElementById("close").onclick=()=>{
+document.getElementById("lightbox").style.display="none";
+};
+
+document.getElementById("lightbox").onclick=e=>{
+if(e.target.id==="lightbox"){
+e.currentTarget.style.display="none";
+}
+};
+
+// قلوب متحركة
+function createHeart(){
+if(site.style.display==="none")return;
+
+const heart=document.createElement("div");
+heart.className="heart";
+heart.textContent=["♥","♡","❤"][Math.floor(Math.random()*3)];
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(12+Math.random()*20)+"px";
+heart.style.animationDuration=(6+Math.random()*6)+"s";
+
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),13000);
+}
+
+setInterval(createHeart,1100);
+
+// تأثير حركة خفيفة للصور عند تحريك الشاشة
+window.addEventListener("scroll",()=>{
+document.querySelectorAll(".photo-card.show img").forEach(img=>{
+const rect=img.getBoundingClientRect();
+if(rect.top<window.innerHeight && rect.bottom>0){
+const distance=(rect.top-window.innerHeight/2)*0.025;
+img.style.transform=`translateY(${Math.max(-9,Math.min(9,distance))}px)`;
+}
+});
+},{passive:true});
+</script>
+
+</body>
+</html>
