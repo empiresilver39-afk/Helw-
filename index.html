@@ -454,12 +454,12 @@ to{transform:scale(1);opacity:1}
 </div>
 
 <div class="music" id="music" style="display:none">
-<button id="musicBtn">▶</button>
+<button id="musicBtn" type="button">▶</button>
 <span>كلمة - رامي صبري</span>
 </div>
 
 <audio id="song" loop preload="auto">
-<source src="https://raw.githubusercontent.com/empiresilver39-afk/Moktam/main/Song/04.Kelma.mp3" type="audio/mpeg">
+<source src="https://raw.githubusercontent.com/empiresilver39-afk/Song/refs/heads/main/04.Kelma.mp3" type="audio/mpeg">
 </audio>
 
 <div id="lightbox">
@@ -572,7 +572,11 @@ musicBtn.textContent="▶";
 }
 });
 
-song.addEventListener("ended",()=>{
+song.addEventListener("play",()=>{
+musicBtn.textContent="Ⅱ";
+});
+
+song.addEventListener("pause",()=>{
 musicBtn.textContent="▶";
 });
 
