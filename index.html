@@ -430,14 +430,11 @@ to{transform:scale(1);opacity:1}
 </section>
 
 <section class="gallery">
-
 <div class="section-title">
 <h2>تفاصيل مش بتتنسي</h2>
 <p>كل صورة وراها حكاية ❤️</p>
 </div>
-
 <div id="photos"></div>
-
 </section>
 
 <section class="message">
@@ -453,10 +450,7 @@ to{transform:scale(1);opacity:1}
 </p>
 </section>
 
-<footer>
-Made with Love ❤️
-</footer>
-
+<footer>Made with Love ❤️</footer>
 </div>
 
 <div class="music" id="music" style="display:none">
@@ -465,7 +459,7 @@ Made with Love ❤️
 </div>
 
 <audio id="song" loop preload="auto">
-<source src="https://raw.githubusercontent.com/empiresilver39-afk/Moktam/main/04.Kelma.mp3" type="audio/mpeg">
+<source src="https://raw.githubusercontent.com/empiresilver39-afk/Moktam/main/Song/04.Kelma.mp3" type="audio/mpeg">
 </audio>
 
 <div id="lightbox">
@@ -474,7 +468,7 @@ Made with Love ❤️
 </div>
 
 <script>
-const imageFiles = [
+const imageFiles=[
 "0cf38eae-00b8-4926-b3e8-d79849429cf4.jpeg",
 "228bfe29-d3f4-470b-84f0-5484468f069b.jpeg",
 "22a33bb8-d972-48d1-9ae0-97caca9f6bb9.jpeg",
@@ -485,20 +479,21 @@ const imageFiles = [
 "ebe6cf5d-eef8-4f6a-a18b-9553b93ac358.jpeg"
 ];
 
-const base =
-"https://raw.githubusercontent.com/empiresilver39-afk/Helw-/main/";
-
-const photos = document.getElementById("photos");
+const base="https://raw.githubusercontent.com/empiresilver39-afk/Helw-/main/";
+const photos=document.getElementById("photos");
 
 imageFiles.forEach((file,index)=>{
 const card=document.createElement("div");
 card.className="photo-card";
 
 const img=document.createElement("img");
-img.src=base+file;
+img.src=base+encodeURIComponent(file);
 img.alt="ذكرى رقم "+(index+1);
 img.loading="lazy";
-img.onerror=()=>{img.alt="تعذر تحميل الصورة";};
+
+img.onerror=()=>{
+img.alt="تعذر تحميل الصورة";
+};
 
 const number=document.createElement("div");
 number.className="number";
@@ -539,6 +534,7 @@ const musicBtn=document.getElementById("musicBtn");
 function unlock(){
 if(password.value==="20/12"){
 lock.style.opacity="0";
+
 setTimeout(()=>{
 lock.style.display="none";
 site.style.display="block";
@@ -558,18 +554,26 @@ password.value="";
 }
 
 enter.addEventListener("click",unlock);
+
 password.addEventListener("keydown",e=>{
 if(e.key==="Enter")unlock();
 });
 
 musicBtn.addEventListener("click",()=>{
 if(song.paused){
-song.play();
+song.play().then(()=>{
 musicBtn.textContent="Ⅱ";
+}).catch(()=>{
+musicBtn.textContent="▶";
+});
 }else{
 song.pause();
 musicBtn.textContent="▶";
 }
+});
+
+song.addEventListener("ended",()=>{
+musicBtn.textContent="▶";
 });
 
 document.getElementById("close").onclick=()=>{
@@ -582,7 +586,6 @@ e.currentTarget.style.display="none";
 }
 };
 
-// قلوب متحركة
 function createHeart(){
 if(site.style.display==="none")return;
 
@@ -599,10 +602,10 @@ setTimeout(()=>heart.remove(),13000);
 
 setInterval(createHeart,1100);
 
-// تأثير حركة خفيفة للصور عند تحريك الشاشة
 window.addEventListener("scroll",()=>{
 document.querySelectorAll(".photo-card.show img").forEach(img=>{
 const rect=img.getBoundingClientRect();
+
 if(rect.top<window.innerHeight && rect.bottom>0){
 const distance=(rect.top-window.innerHeight/2)*0.025;
 img.style.transform=`translateY(${Math.max(-9,Math.min(9,distance))}px)`;
